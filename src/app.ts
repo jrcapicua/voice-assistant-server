@@ -13,8 +13,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'OPTIONS'], // incluye OPTIONS para preflight
 }));
 
-app.options('*', cors()); // responde a preflight
-
 app.use(express.json());
 app.use('/api/voice', voiceRoutes);
 app.use(errorHandler);
