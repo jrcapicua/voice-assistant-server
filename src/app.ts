@@ -6,7 +6,9 @@ import { errorHandler } from './middlewares/errorHandler';
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+  origin: 'https://voice-assistant-client-cinx.onrender.com'
+}))
 
 // Routes
 app.use('/api/voice', voiceRoutes);
