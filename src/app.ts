@@ -1,19 +1,22 @@
 import express from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import voiceRoutes from './routes/voiceRoutes';
 import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 
-app.use(express.json());
+const allowedOrigin = 'https://voice-assistant-client-cinx.onrender.com';
+
 app.use(cors({
-  origin: 'https://voice-assistant-client-cinx.onrender.com'
-}))
+  origin: allowedOrigin,
+  credentials: true, // si usás cookies, tokens, etc.
+  methods: ['GET', 'POST', 'OPTIONS'], // incluye OPTIONS para preflight
+}));
 
-// Routes
+app.options('*', cors()); // responde a preflight
+
+app.use(express.json());
 app.use('/api/voice', voiceRoutes);
-
-// Global error handler (should be after routes)
 app.use(errorHandler);
 
 export default app;
